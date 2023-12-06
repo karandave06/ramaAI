@@ -5,6 +5,7 @@ import FormField from "../Components/FormField";
 import Loader from "../Components/Loader";
 import { getRandmoPrompt } from "../utils";
 import axios from "axios";
+import ImageLoader from '../Components/ImageLoader'
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -15,11 +16,14 @@ const CreatePost = () => {
   });
   const [generatingImage, setgeneratingImage] = useState(false);
   const [loading, setloading] = useState(false);
+  const [ImageLoading,setImageLoading] = useState(false)
 
+ 
   const generateImage = async () => {
     if (form.prompt) {
       try {
-        setgeneratingImage(true);
+        setgeneratingImage(true); 
+        setImageLoading(true)
 
         const prompt = form.prompt;
         const response = await axios.post(`https://rama-api.onrender.com/api/v1/ram`, {
@@ -33,15 +37,10 @@ const CreatePost = () => {
       } catch (error) {
 
         alert(error)
-        // if(error.response.data.message == "Your request was rejected as a result of our safety system. Please enter a valide prompt."){
-        //   alert("plase enter a valid prompt.Your prompot was rejected as a result of our safety system")
-        // }
-        // else{
-        //   alert(error)
-        // }
+       
         
       } finally {
-        setgeneratingImage(false);
+        setgeneratingImage(false); 
       }
     } else {
       alert("please enter a prompt");
@@ -125,6 +124,8 @@ const CreatePost = () => {
                 src={form.photo}
                 alt={form?.prompt}
                 className="w-full h-full object-contain"
+                onLoad={() => setImageLoading(false)}
+                
               />
             ) : (
               <img
@@ -139,6 +140,12 @@ const CreatePost = () => {
                 <Loader />
               </div>
             )}
+
+            {!generatingImage && ImageLoading ? (<div
+            className="absolute rounded-lg  inset-0 z-0 flex  justify-center  items-center bg-[rgb(0,0,0,0.5)]"
+            > 
+            <ImageLoader />
+            </div>) : (<> </>)}   
           </div>
         </div>
         <div className="mt-5 flex gap-5">

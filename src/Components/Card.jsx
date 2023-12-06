@@ -22,7 +22,7 @@ const Card = ({ _id, name, prompt, photo }) => {
 
           <button type="button" onClick={() => downoladImage(_id,photo)} 
  className="outline-none bg-transparent border-none">
-  <img src={downolad} alt="downolad" className="w-6 h-6 object-contain invert"/>
+  <img src={downolad} loading="lazy" alt="downolad" className="w-6 h-6 object-contain invert"/>
  </button>
         </div>
       </div>
