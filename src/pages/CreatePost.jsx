@@ -19,7 +19,7 @@ const CreatePost = () => {
   const [ImageLoading,setImageLoading] = useState(false)
 
  
-  const generateImage = async () => {
+  const generateImage = async ( ) => { 
     if (form.prompt) {
       try {
         setgeneratingImage(true); 
@@ -112,6 +112,7 @@ const CreatePost = () => {
             handleChange={handleChange}
             issurpriseme
             handleSupriseMe={handleSupriseMe}
+            onkeydown={"return (event.keyCode!=13)"}
           />
 
           <div
