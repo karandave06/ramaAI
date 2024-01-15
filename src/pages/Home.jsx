@@ -11,7 +11,12 @@ const RanderCard = ({ data, title }) => {
   }
 
   return (
-    <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">{title}</h2>
+    <div className="w-[88rem]  h-[30rem] flex items-center justify-center flex-col">
+      <Loader />
+      <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">
+        {title}
+      </h2>
+    </div>
   );
 };
 
@@ -25,33 +30,34 @@ const Home = () => {
     try {
       setloading(true);
       axios
-      .get(`https://rama-api.onrender.com/api/v1/post`)
-      .then((data) => {
-        setallPost(data.data.data);
-      })
-      .catch((err) => console.log(err));
+        .get(`${import.meta.env.VITE_SOME_KEY}api/v1/post`)
+        .then((data) => {
+          setallPost(data.data.data);
+          // console.log(import.meta.env.VITE_SOME_KEY)
+        })
+        .catch((err) => console.log(err));
     } catch (error) {
-      console.log(error) 
-    }finally{
+      console.log(error);
+    } finally {
       setloading(false);
     }
-   
   }, []);
 
   const handleSearch = (e) => {
-    clearTimeout(searchTimeout)
+    clearTimeout(searchTimeout);
     setsearchText(e.target.value);
 
-    setsearchTimeout( setTimeout(() => {
-      const SearchResult = allPost.filter(
-        (item) =>
-          item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-          item.prompt.toLowerCase().includes(searchText.toLowerCase())
-      );
+    setsearchTimeout(
+      setTimeout(() => {
+        const SearchResult = allPost.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.prompt.toLowerCase().includes(searchText.toLowerCase())
+        );
 
-      setsetsearchResults(SearchResult);
-    }, 500))
-   
+        setsetsearchResults(SearchResult);
+      }, 500)
+    );
   };
   return (
     <section className="max-w-7xl mx-auto">
@@ -66,11 +72,11 @@ const Home = () => {
       </div>
 
       <div className="mt-16">
-        <FormField 
-          Lablename={'Search posts'}
-          type={'text'}
-          name={'text'}
-          placeholder={'Search posts'}
+        <FormField
+          Lablename={"Search posts"}
+          type={"text"}
+          name={"text"}
+          placeholder={"Search posts"}
           value={searchText}
           handleChange={handleSearch}
         />
@@ -92,9 +98,12 @@ const Home = () => {
 
             <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
               {searchText ? (
-                <RanderCard data={searchResults} title="no search resultfound" />
+                <RanderCard
+                  data={searchResults}
+                  title="no search resultfound"
+                />
               ) : (
-                <RanderCard data={allPost} title="No post found" />
+                <RanderCard data={allPost} title="Loading..." />
               )}
             </div>
           </>

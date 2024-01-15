@@ -20,9 +20,7 @@ function App() {
           Create Post
         </Link>
       </header>
-
-
-
+ 
       <main className="bg-[#fafef9] sm:p-8 px-4 py-8 w-full   min-h-[calc(100vh-73px)]">
       <Routes>
         <Route path="/" element={<Home />}/>

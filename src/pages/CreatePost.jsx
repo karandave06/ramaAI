@@ -25,8 +25,9 @@ const CreatePost = () => {
         setgeneratingImage(true); 
         setImageLoading(true)
 
-        const prompt = form.prompt;
-        const response = await axios.post(`https://rama-api.onrender.com/api/v1/ram`, {
+        const prompt = form.prompt; 
+        const response = await axios.post(`${import.meta.env.VITE_SOME_KEY}api/v1/ram`
+        , {
           prompt,
         }); 
         setform({
