@@ -12,7 +12,7 @@ const RanderCard = ({ data, title }) => {
 
   return (
     <div className="md:w-[88rem]  md:h-[20rem] w-[22rem] h-[22rem] flex items-center justify-center flex-col">
-      <Loader />
+     {title === "Loading..." && <Loader />}
       <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">
         {title}
       </h2>
